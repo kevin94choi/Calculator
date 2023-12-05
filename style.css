@@ -1,0 +1,88 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: border-box;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background: linear-gradient(to bottom right, #121C84, #8278DA);
+    background-repeat: no-repeat;
+}
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 150px;
+    border-radius: 25px;
+    height: 400px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    padding: 15px;
+}
+
+.display {
+    height: 130px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    width: 400px;
+    background-color: beige;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-shrink: 0;
+}
+
+.current_operand,
+.previous_operand {
+    padding: 10px;
+    border-radius: 15px;
+    font-size: 40px;
+}
+
+.numberBtn,
+.operatorBtn,
+.button {
+    flex-basis: 24%;
+    cursor: pointer;
+    border-radius: 15px;
+    font-size: 23px;
+    background-color: lightpink;
+    border: none;
+}
+
+.operatorBtn,
+#btnClear,
+#btnEquals {
+    background-color: lightgreen;
+}
+
+.operatorBtn:hover,
+#btnClear:hover,
+#btnEquals:hover{
+    background-color: peru;
+}
+
+
+.numberBtn:hover {
+    background-color: #8278DA;
+}
+
+.firstLine,
+.secondLine,
+.thirdLine,
+.fourthLine {
+    display: flex;
+    justify-content: space-between;
+    flex-basis: 100%;
+}
+
+.firstLine,
+.secondLine,
+.thirdLine {
+    margin-bottom: 5px;
+}
