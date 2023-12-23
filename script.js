@@ -1,81 +1,117 @@
 let firstOperand = '';
 let secondOperand = '';
+let operator = '';
 
 const numberBtn = document.querySelectorAll('.numberBtn');
-const operatorBtn = document.querySelectorAll('.OperatorBtn');
+const operatorBtn = document.querySelectorAll('.operatorBtn');
 const btnClear = document.querySelector('#btnClear');
 const btnEquals = document.querySelector('#btnEquals');
-const currentOperand = document.querySelector('.current_operand');
-const previousOperand = document.querySelector('.previous_operand');
+const currentScreen = document.querySelector('.currentScreen');
+const previousScreen = document.querySelector('.previousScreen');
 
-function add(a,b) {
-    return a + b;
+function add(a, b) {
+    return parseFloat(a) + parseFloat(b);
 }
 
-function substract(a,b){
-    return a - b;
+function subtract(a, b) {
+    return parseFloat(a) - parseFloat(b);
 }
 
-function multiply(a,b){
-    return a * b;
+function multiply(a, b) {
+    return parseFloat(a) * parseFloat(b);
 }
 
-function divide(a,b){
+function divide(a, b) {
     if (b != 0) {
-        return a / b;
+        return parseFloat(a) / parseFloat(b);
     }else {
-        return "Cannot divide by zero";
+        alert("Cannot divide by zero");
     }
 }
 
-function operate(firstOperand, operator, secondOperand){
+function operate(a, operator, b) {
     switch (operator){
         case '+':
-            return add(firstOperand, secondOperand);
+            return add(a, b);
             break;
         case '−':
-            return subtract(firstOperand, secondOperand);
+            return subtract(a, b);
             break;
         case '×':
-            return multiply(firstOperand, secondOperand);
+            return multiply(a, b);
             break;
         case '÷': 
-            return divide(firstOperand, secondOperand);
+            return divide(a, b);
             break;
     }
 }
 
-btnClear.addEventListener('click', () => {
-    clear();
-})
+btnClear.addEventListener('click', clear)
 
-numberBtn.forEach(item => {
-    item.addEventListener('click', () => {
-        updateOperands(item.textContent)
+numberBtn.forEach((button) => {
+    button.addEventListener('click', () => {
+        appendNumber(button.textContent)
     });
 });
 
-operatorBtn.forEach(item => {
-    item.addEventListener('click', () => {
-        updateOperator(item.textContent)
+
+operatorBtn.forEach(button => {
+    button.addEventListener('click', () => {
+        // if (currentScreen.textContent === '' || previousScreen.textContent === 'Press a number first!'){
+        //     previousScreen.textContent = 'Press a number first!'
+        // }else {
+        // // firstOperand = currentScreen.textContent
+        // previousScreen.textContent = currentScreen.textContent;
+        // currentScreen.textContent = '';
+        updateOperator(button.textContent)})
     });
-});
+// });
+
+btnEquals.addEventListener('click', calculate)
+    // previousScreen.textContent = `${previousScreen.textContent} ${currentScreen.textContent} =`;
+    // currentScreen.textContent = '';
+    // currentScreen.textContent = operate(firstOperand, operator, secondOperand);
+    // firstOperand = operate(firstOperand, operator, secondOperand);
+// })
 
 function clear(){
-    currentOperand.textContent = '';
-    previousOperand.textContent = '';
+    currentScreen.textContent = '';
+    previousScreen.textContent = '';
+    firstOperand = ''
+    secondOperand = ''
+    operator = ''
 }
 
-function updateOperands(value){
-    if (operatorBtn.textContent == ''){
-        currentOperand.textContent += value;
-    } else {
-        previousOperand.textContent += value;
-    }
+function appendNumber(number){
+    // if (previousScreen.textContent == ''){
+        if (currentScreen.textContent !== '' && previousScreen.textContent !== ''){
+            currentScreen.textContent = '';
+            currentScreen.textContent += number;
+        } else {
+            currentScreen.textContent += number;
+        }
+    //     firstOperand += number;
+    // }else if (previousScreen.textContent !== '' && currentScreen.textContent !== ''){
+    //     firstOperand = currentScreen.textContent;
+    //     currentScreen.textContent += number;
+    //     secondOperand += number;
+    // }else{
+    //     currentScreen.textContent += number;
+    //     secondOperand += number;
+    // }
 };
 
 function updateOperator(value){
-    currentOperand.textContent += value;
-    previousOperand.textContent += value;
+    if(operator !== '')calculate();
+    firstOperand = currentScreen.textContent;
+    operator = value;
+    previousScreen.textContent =  `${firstOperand} ${value}`;
+    currentScreen.textContent = '';
+}
 
+function calculate(){
+    secondOperand = currentScreen.textContent;
+    currentScreen.textContent = operate(firstOperand, operator, secondOperand);
+    previousScreen.textContent = `${firstOperand} ${operator} ${secondOperand} =`
+    operator = ''
 }
